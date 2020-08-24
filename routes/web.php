@@ -21,6 +21,8 @@ Route::match(['get','post'],'/create', 'IndexController@createAdv')->name('creat
 /**
  * Авторизация
  */
-Route::match(['get','post'],'/signup', 'AuthController@signUp')->name('authSignup');
+Route::match(['get','post'],'/signup', 'AuthController@signUp')->middleware('guest')->name('authSignup');
 
-Route::match(['get','post'],'/signin', 'AuthController@signIn')->name('authSignin');
+Route::match(['get','post'],'/signin', 'AuthController@signIn')->middleware('guest')->name('authSignin');
+
+Route::get('/signout', 'AuthController@signOut')->name('authSignout');

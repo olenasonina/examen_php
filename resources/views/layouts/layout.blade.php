@@ -13,8 +13,13 @@
 
 <nav>
 <ul class='navbar-nav ml-auto'>
+    @if(Auth::check())
+    <li class='navbar-item'><a href="#" class='nav-link'>{{ Auth::user()->getName() }}</a></li>
+    <li class='navbar-item'><a href="{{ route('authSignout') }}" class='nav-link'>Выйти</a></li>
+    @else
     <li class='navbar-item'><a href="{{ route('authSignup') }}" class='nav-link'>Зарегистрироваться</a></li>
     <li class='navbar-item'><a href="{{ route('authSignin') }}" class='nav-link'>Войти</a></li>
+    @endif
 </ul>
 </ul>
 </nav>

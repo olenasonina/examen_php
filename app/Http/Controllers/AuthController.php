@@ -45,4 +45,9 @@ class AuthController extends Controller
         }
         return view('auth.signin', ['title' => 'GrainBoard | Войти']);
     }
+
+    public function signOut() {
+        Auth::logout();
+        return redirect()->route('index');
+    }
 }
