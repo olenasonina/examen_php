@@ -10,7 +10,7 @@
 @section('form')
 
 <div class="row">
-  <form novalidate="" action="{{ route('createAdv') }}" method="POST" enctype=«multipart/form-data»> @csrf <h4 class="mb-3">Опишите товарную позицию:</h4>
+  <form novalidate="" action="{{ route('createAdv') }}" method="POST" enctype="multipart/form-data"> @csrf <h4 class="mb-3">Опишите товарную позицию:</h4>
     <div class="row">
       <div class="col-md-12 mb-3">
         <label for="crop">Наименование зерновой культуры:</label>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class IndexController extends Controller
 {
@@ -21,8 +21,7 @@ class IndexController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = time() . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(300,300)->save(public_path());
-                dd($filename);
+                Image::make($image)->resize(300,300)->save(public_path($this->getImagePath($request->id)) . $filename);
             }
         }
 
@@ -33,6 +32,8 @@ class IndexController extends Controller
             $locations = \DB::table('location_regions_districts')
                 ->join('location_regions', 'location_regions_districts.region_id', '=', 'location_regions.id')
                 ->select('location_regions_districts.*', 'location_regions.name as regions_name')
+                ->where('location_regions_districts.available','yes')
+                ->orderBy('location_regions.name')
                 ->get();
             $seller_types = \DB::table('seller_types')->get()->where('available', 'yes');
             $pickup = \DB::table('pickup')->get()->where('available', 'yes');
@@ -46,5 +47,14 @@ class IndexController extends Controller
             ]);
         }
         abort(404);
+    }
+
+    public function getImagePath() {
+        $path = "uploads/adv_images";
+        if(! file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        return "/$path/";
     }
 }

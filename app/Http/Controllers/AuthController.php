@@ -36,8 +36,6 @@ class AuthController extends Controller
             if(!Auth::attempt($request->only(['email','password']), $request->has('remember')))
             {
                 return redirect()->back()->with('info', 'Неправильный логин или пароль.');
-                echo "no";
-                exit;
             }
 
             return redirect()->route('index')->with('info', 'Вы успешно вошли на сайт');
