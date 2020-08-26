@@ -10,9 +10,7 @@
 @section('form')
 
 <div class="row">
-  <form novalidate="" action="{{ route('createAdv') }}" method="POST">
-    @csrf
-    <h4 class="mb-3">Опишите товарную позицию:</h4>
+  <form novalidate="" action="{{ route('createAdv') }}" method="POST" enctype=«multipart/form-data»> @csrf <h4 class="mb-3">Опишите товарную позицию:</h4>
     <div class="row">
       <div class="col-md-12 mb-3">
         <label for="crop">Наименование зерновой культуры:</label>
@@ -25,7 +23,11 @@
           @endforelse
         </select>
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
+        <label for="image">Добавьте фото:</label>
+        <input type="file" name="image" id="image">
+      </div>
+      <div class="col-md-12 mb-3">
         <label for="crops_class">Классификация технологического качества (класс):</label>
         <select class="custom-select d-block w-100" id="crops_class" name='crops_class' required="">
           <option value="">Choose...</option>
@@ -51,7 +53,7 @@
 
         </select>
       </div>
-      
+
 
       <div class="col-md-6 mb-3">
         <label for="districts">Район:</label>
