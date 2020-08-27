@@ -91,27 +91,10 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <label for="price">Цена:</label>
+                    <div class="col-md-6 mb-3">
+                        <label for="price">Цена за тонну:</label>
                         <input type="text" class="form-control" id="price" name='price' placeholder="" required="">
                         @error('price')
-                        <span class="text-danger"> {{$message}} </span>
-                        @enderror
-                    </div>
-                    
-                    <div class="col-md-3 mb-3">
-                        <label for="unit">Единица измерения:</label>
-                        <select class="custom-select d-block w-100" id="unit" name='unit' required="">
-                            <option value="">Choose...</option>
-
-                            @forelse ($units as $unit)
-                            <option value="{{$unit}}">{{$unit}}</option>
-                            @empty
-                            <p>Отсутствуют</p>
-                            @endforelse
-
-                        </select>
-                        @error('unit')
                         <span class="text-danger"> {{$message}} </span>
                         @enderror
                     </div>

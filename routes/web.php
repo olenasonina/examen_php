@@ -13,9 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Работа с объявлениями
+ */
+
 Route::get('/', 'IndexController@getIndex')->name('index');
 
 Route::match(['get','post'],'/create', 'IndexController@createAdv')->middleware('auth')->name('createAdv');
+
+Route::get('/show/{id}', 'IndexController@showAdv')->name('showAdv');
 
 
 /**

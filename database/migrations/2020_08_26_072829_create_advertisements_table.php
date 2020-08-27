@@ -31,7 +31,6 @@ class CreateAdvertisementsTable extends Migration
             $table->foreign('location_regions_district_id')->references('id')->on('location_regions_districts')->onDelete('cascade');
             $table->unsignedBigInteger('pickup_id')->comment('FK');
             $table->float('price', 8, 2)->comment('price');
-            $table->enum('unit', ['кг', 'ц', 'т'])->default('т')->comment('unit of crop for pricing');
             $table->foreign('pickup_id')->references('id')->on('pickup')->onDelete('cascade');
             $table->longText('description')->comment('short description of product offer');
             $table->unsignedBigInteger('seller_type_id')->comment('FK');

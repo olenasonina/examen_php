@@ -13,7 +13,10 @@ class IndexController extends Controller
     {
         if (view()->exists('index')) {
             $cats = \DB::table('crops_categories')->get();
-            $advs = \DB::table('advertisements')->orderBy('updated_at', 'desc')->get();
+            $advs = \DB::table('advertisements')
+            ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
+            ->select('advertisements.*', 'crops.name as crops_name')
+            ->orderBy('updated_at', 'desc')->get();
             return view('index', ['title' => 'GrainBoard | Главная', 'cats' => $cats, 'advs' => $advs]);
         }
         abort(404);
@@ -34,7 +37,7 @@ class IndexController extends Controller
                 'price' => 'required|numeric',
             ]);
 
-            $filename = NULL;
+            $filename = '1598417043.png';
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -53,7 +56,6 @@ class IndexController extends Controller
                 'location_regions_district_id' => $request->input('districts'),
                 'pickup_id' => $request->input('pickup'),
                 'price' => $request->input('price'),
-                'unit' => $request->input('units'),
                 'description' => $request->input('cropdescription'),
                 'seller_type_id' => $request->input('seller_types'),
                 'web-syte' => $request->input('c_web'),
@@ -79,7 +81,7 @@ class IndexController extends Controller
             $pickup = \DB::table('pickup')->get()->where('available', 'yes');
             $payment_methods = \DB::table('payment_methods')->get()->where('available', 'yes');
             $payment_forms = \DB::table('payment_forms')->get();
-            $units = ['кг', 'ц', 'т'];
+            $units = ['kg'=>'кг', 'ton'=>'тонн'];
             return view('form', ['title' => 'GrainBoard | Создать'], [
                 'crops' => $crops, 'crops_classiness' => $crops_classiness,
                 'incoterms' => $incoterms, 'locations' => $locations,
@@ -98,5 +100,12 @@ class IndexController extends Controller
         }
 
         return "/$path/";
+    }
+
+    public function showAdv($id) {
+        if (view()->exists('some_adv')) {
+            return view('some_adv', ['title' => 'GrainBoard | Объявление']);
+        }
+        abort(404); 
     }
 }
