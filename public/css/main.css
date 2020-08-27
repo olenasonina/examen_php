@@ -1,0 +1,19 @@
+.navbar-brand {
+    font-size: 36px;
+}
+.navbar-nav {
+    font-size: 18px;
+}
+
+/* .myNav {
+    display:-ms-flexbox;
+    display:flex;
+    -ms-flex-flow:row wrap;
+    flex-flow:row wrap;
+    -ms-flex-align:center;
+    align-items:center
+} */
+
+.my-categorylink {
+    color:black;
+}

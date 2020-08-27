@@ -10,19 +10,19 @@
 @section('form')
 
 <div class='row'>
-    <div class='col-lg-4 mx-auto'>
+    <div class='col-lg-4 mx-auto my-5'>
         <h3>Войти на сайт</h3>
         <form method='POST' action="{{ route('authSignin') }}" novalidate>
             @csrf
             <div class="form-group">
-                <label for="email">Email address</label>
+                <label for="email">Ваш email:</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="Например, user@gmail.com" value="{{ old('email') }}">
                 @error('email')
                 <span class="text-danger"> {{$message}} </span>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Пароль:</label>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Минимум 6 символов" value="">
                 @error('password')
                 <span class="text-danger"> {{$message}} </span>

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@getIndex')->name('index');
 
-Route::match(['get','post'],'/create', 'IndexController@createAdv')->name('createAdv');
+Route::match(['get','post'],'/create', 'IndexController@createAdv')->middleware('auth')->name('createAdv');
 
 
 /**
