@@ -5,4 +5,11 @@
     @empty
     <p>Категории отсутствуют</p>
     @endforelse
+
+    @if(Auth::check())
+    <h5 class="mt-5">Профиль:</h5>
+    <a class="nav-link my-categorylink" href="{{ route('myAdv', Auth::id()) }}">Мои объявления</a>
+    <a class="nav-link my-categorylink" href="#">Мои сообщения</a>
+    @endif
+
 </div>

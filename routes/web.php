@@ -25,6 +25,8 @@ Route::get('/show/{id_adv}', 'IndexController@showAdv')->name('showAdv');
 
 Route::get('cat/show/{id_cat}', 'IndexController@showCat')->name('showCat');
 
+Route::get('user/show/{id_user}', 'IndexController@myAdv')->name('myAdv');
+
 
 /**
  * Авторизация

@@ -140,4 +140,13 @@ class IndexController extends Controller
                   ->orderBy('updated_at', 'desc')->get();
         return view('cats', ['title' => 'GrainBoard | Категория', 'cats' => $cats, 'advs' => $c_advs]);
     }
+    
+    public function myAdv() {
+        $c_advs = \DB::table('advertisements')
+                  ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
+                  ->select('advertisements.*', 'crops.name as crops_name')
+                  ->where('advertisements.user_id', Auth::id())
+                  ->orderBy('updated_at', 'desc')->get();
+        return view('userAdv', ['title' => 'GrainBoard | Объявления', 'advs' => $c_advs]);
+    }
 }
