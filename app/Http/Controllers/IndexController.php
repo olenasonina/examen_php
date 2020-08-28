@@ -134,12 +134,13 @@ class IndexController extends Controller
 
     public function showCat($id_cat) {
         $cats = \DB::table('crops_categories')->get();
-        $params = [];
+        $params = ['pending' => 'Объявления со статусом - в ожидании'];
         $c_advs = \DB::table('advertisements')
                   ->leftJoin('crops', 'advertisements.crop_id', '=', 'crops.id')
                   ->leftJoin('crops_categories', 'crops.category_id', '=', 'crops_categories.id')
                   ->select('advertisements.*', 'crops.name as crops_name', 'crops_categories.name as category_name')
                   ->where('crops_categories.id', $id_cat)
+                  ->where('advertisements.offers_status_id', '2')
                   ->orderBy('updated_at', 'desc')->get();
         return view('cats', ['title' => 'GrainBoard | Категория', 'cats' => $cats, 'advs' => $c_advs, 'params' => $params]);
     }
