@@ -21,7 +21,7 @@ Route::get('/', 'IndexController@getIndex')->name('index');
 
 Route::match(['get','post'],'/create', 'IndexController@createAdv')->middleware('auth')->name('createAdv');
 
-Route::get('/show/{id}', 'IndexController@showAdv')->name('showAdv');
+Route::get('/show/{id_adv}', 'IndexController@showAdv')->name('showAdv');
 
 
 /**

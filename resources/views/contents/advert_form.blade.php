@@ -6,7 +6,7 @@
                 <h5 class="mb-3">Опишите товарную позицию:</h5>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="crop">Наименование зерновой культуры:</label>
+                        <label for="crop">Наименование зерновой культуры:<span style="color:red;"> *</span></label>
                         <select class="custom-select d-block w-100" id="crop" name='crop' required="" value="{{ old('crop') }}">
                             <option value="">Choose...</option>
                             @forelse ($crops as $crop)
@@ -27,7 +27,7 @@
                         @enderror
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="crops_class">Классификация технологического качества (класс):</label>
+                        <label for="crops_class">Классификация технологического качества (класс):<span style="color:red;"> *</span></label>
                         <select class="custom-select d-block w-100" id="crops_class" name='crops_class' required="">
                             <option value="">Choose...</option>
 
@@ -58,7 +58,7 @@
 
 
                     <div class="col-md-6 mb-3">
-                        <label for="districts">Район:</label>
+                        <label for="districts">Район:<span style="color:red;"> *</span></label>
                         <select class="custom-select d-block w-100" id="districts" name='districts' required="">
                             <option value="">Choose...</option>
 
@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="pickup">Хранение зерна (текущее состояние сбора):</label>
+                        <label for="pickup">Хранение зерна (текущее состояние сбора):<span style="color:red;"> *</span></label>
                         <select class="custom-select d-block w-100" id="pickup" name='pickup' required="">
                             <option value="">Choose...</option>
 
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="price">Цена за тонну:</label>
+                        <label for="price">Цена за тонну:<span style="color:red;"> *</span></label>
                         <input type="text" class="form-control" id="price" name='price' placeholder="" required="">
                         @error('price')
                         <span class="text-danger"> {{$message}} </span>
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <label for="cropdescription">Описание: </label>
+                        <label for="cropdescription">Описание:<span style="color:red;"> *</span></label>
                         <textarea class="form-control" id="cropdescription" rows="8" name='cropdescription'></textarea>
                         @error('cropdescription')
                         <span class="text-danger"> {{$message}} </span>
@@ -112,7 +112,7 @@
 
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="seller_types">Ваш статус, как продавца</label>
+                        <label for="seller_types">Ваш статус, как продавца<span style="color:red;"> *</span></label>
                         <select class="custom-select d-block w-100" id="seller_types" name='seller_types' required="">
                             <option value="">Choose...</option>
 
@@ -129,7 +129,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="company_web">Company's Website URL</label>
+                        <label for="company_web">Website компании:</label>
                         <input type="text" class="form-control" id="company_web" name='c_web' placeholder="" required="">
                         @error('c_web')
                         <span class="text-danger"> {{$message}} </span>
@@ -137,7 +137,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="phone">Контактный телефон:</label>
+                        <label for="phone">Контактный телефон:<span style="color:red;"> *</span></label>
                         <input type="text" class="form-control" id="phone" name='phone' placeholder="" required="">
                         @error('phone')
                         <span class="text-danger"> {{$message}} </span>
@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="payment_methods">Допустимый метод оплаты</label>
+                        <label for="payment_methods">Допустимый метод оплаты:</label>
                         <select class="custom-select d-block w-100" id="payment_methods" name='payment_methods' required="">
                             <option value="">Choose...</option>
 
@@ -159,7 +159,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="payment_forms">Допустимая форма оплаты</label>
+                        <label for="payment_forms">Допустимая форма оплаты:</label>
                         <select class="custom-select d-block w-100" id="payment_forms" name='payment_forms' required="">
                             <option value="">Choose...</option>
 
