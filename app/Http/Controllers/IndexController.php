@@ -14,10 +14,12 @@ class IndexController extends Controller
         if (view()->exists('index')) {
             $cats = \DB::table('crops_categories')->get();
             $advs = \DB::table('advertisements')
-            ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
+            ->leftJoin('crops', 'advertisements.crop_id', '=', 'crops.id')
             ->select('advertisements.*', 'crops.name as crops_name')
+            ->where('advertisements.offers_status_id', '2')
             ->orderBy('updated_at', 'desc')->get();
-            return view('index', ['title' => 'GrainBoard | Главная', 'cats' => $cats, 'advs' => $advs]);
+            $params = ['pending' => 'Объявления со статусом - в ожидании'];
+            return view('index', ['title' => 'GrainBoard | Главная', 'cats' => $cats, 'advs' => $advs, 'params' => $params]);
         }
         abort(404);
     }
@@ -72,7 +74,7 @@ class IndexController extends Controller
             $crops_classiness = \DB::table('crops_classiness')->get()->where('available', 'yes');
             $incoterms = \DB::table('incoterms')->get()->where('available', 'yes');
             $locations = \DB::table('location_regions_districts')
-                ->join('location_regions', 'location_regions_districts.region_id', '=', 'location_regions.id')
+                ->leftJoin('location_regions', 'location_regions_districts.region_id', '=', 'location_regions.id')
                 ->select('location_regions_districts.*', 'location_regions.name as regions_name')
                 ->where('location_regions_districts.available', 'yes')
                 ->orderBy('location_regions.name')
@@ -103,19 +105,20 @@ class IndexController extends Controller
     }
 
     public function showAdv($id_adv) {
+        $statuses = \DB::table('offers_statuses')->get();
         $adv = \DB::table('advertisements')
-            ->join('users', 'advertisements.user_id', '=', 'users.id')
-            ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
-            ->join('crops_categories', 'crops.category_id', '=', 'crops_categories.id')
-            ->join('crops_classiness', 'advertisements.crops_class_id', '=', 'crops_classiness.id')
-            ->join('incoterms', 'advertisements.incoterms_id', '=', 'incoterms.id')
-            ->join('incoterms_groups', 'incoterms.group_id', '=', 'incoterms_groups.id')
-            ->join('location_regions_districts', 'advertisements.location_regions_district_id', '=', 'location_regions_districts.id')
-            ->join('location_regions', 'location_regions_districts.region_id', '=', 'location_regions.id')
-            ->join('pickup', 'advertisements.pickup_id', '=', 'pickup.id')
-            ->join('seller_types', 'advertisements.seller_type_id', '=', 'seller_types.id')
-            ->join('payment_forms', 'advertisements.payment_form_id', '=', 'payment_forms.id')
-            ->join('payment_methods', 'advertisements.payment_method_id', '=', 'payment_methods.id')
+            ->leftJoin('users', 'advertisements.user_id', '=', 'users.id')
+            ->leftJoin('crops', 'advertisements.crop_id', '=', 'crops.id')
+            ->leftJoin('crops_categories', 'crops.category_id', '=', 'crops_categories.id')
+            ->leftJoin('crops_classiness', 'advertisements.crops_class_id', '=', 'crops_classiness.id')
+            ->leftJoin('incoterms', 'advertisements.incoterms_id', '=', 'incoterms.id')
+            ->leftJoin('incoterms_groups', 'incoterms.group_id', '=', 'incoterms_groups.id')
+            ->leftJoin('location_regions_districts', 'advertisements.location_regions_district_id', '=', 'location_regions_districts.id')
+            ->leftJoin('location_regions', 'location_regions_districts.region_id', '=', 'location_regions.id')
+            ->leftJoin('pickup', 'advertisements.pickup_id', '=', 'pickup.id')
+            ->leftJoin('seller_types', 'advertisements.seller_type_id', '=', 'seller_types.id')
+            ->leftJoin('payment_forms', 'advertisements.payment_form_id', '=', 'payment_forms.id')
+            ->leftJoin('payment_methods', 'advertisements.payment_method_id', '=', 'payment_methods.id')
             ->select('advertisements.*', 'advertisements.web-syte as web','users.name as user_name', 'crops.name as crop_name', 'crops_categories.name as category_name',
                      'incoterms.abbr as incoterm_name', 'incoterms_groups.name as group_name', 'crops_classiness.name as crops_class_name',
                      'location_regions_districts.name as district_name', 'location_regions.name as location_region_name',
@@ -123,27 +126,27 @@ class IndexController extends Controller
                      'payment_methods.name as pay_method_name')
             ->where('advertisements.id', $id_adv)
             ->get();
-            // dd($adv);
         if (view()->exists('some_adv')) {
-            return view('some_adv', ['title' => 'GrainBoard | Объявление', 'adv' => $adv]);
+            return view('some_adv', ['title' => 'GrainBoard | Объявление', 'adv' => $adv, 'statuses' => $statuses]);
         }
         abort(404); 
     }
 
     public function showCat($id_cat) {
         $cats = \DB::table('crops_categories')->get();
+        $params = [];
         $c_advs = \DB::table('advertisements')
-                  ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
-                  ->join('crops_categories', 'crops.category_id', '=', 'crops_categories.id')
+                  ->leftJoin('crops', 'advertisements.crop_id', '=', 'crops.id')
+                  ->leftJoin('crops_categories', 'crops.category_id', '=', 'crops_categories.id')
                   ->select('advertisements.*', 'crops.name as crops_name', 'crops_categories.name as category_name')
                   ->where('crops_categories.id', $id_cat)
                   ->orderBy('updated_at', 'desc')->get();
-        return view('cats', ['title' => 'GrainBoard | Категория', 'cats' => $cats, 'advs' => $c_advs]);
+        return view('cats', ['title' => 'GrainBoard | Категория', 'cats' => $cats, 'advs' => $c_advs, 'params' => $params]);
     }
     
     public function myAdv() {
         $c_advs = \DB::table('advertisements')
-                  ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
+                  ->leftJoin('crops', 'advertisements.crop_id', '=', 'crops.id')
                   ->select('advertisements.*', 'crops.name as crops_name')
                   ->where('advertisements.user_id', Auth::id())
                   ->orderBy('updated_at', 'desc')->get();

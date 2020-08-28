@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        
+
         @forelse ($adv as $item)
         <div class="col-lg-8 mx-auto my-5">
             <h5 class="mb-3">Объявление № {{ $item->id }}</h5>
@@ -16,7 +16,24 @@
                         <h6 class="card-title my-4">Контактный телефон: {{$item->telephon}}</h6>
                         <h6 class="card-title my-4">Допустимый метод оплаты: {{$item->pay_method_name}}</h6>
                         <h6 class="card-title my-4">Допустимая форма оплаты: {{$item->pay_form_name}}</h6>
-                        <a href="#" class="btn btn-primary">Написать автору</a>                     
+                        @if(Auth::id()==1)
+                        
+                        <form action="{{ route('changeStatus', $item->id)}}" method="GET" class="py-4">
+                            @csrf
+                            <label for="status">Изменение статуса сообщения:</label>
+                            <select class="my-3" name="status" id="status">
+                                <option value="">Choose...</option>
+
+                                @forelse ($statuses as $status)
+                                <option value="{{$status->id}}">{{$status->name}}</option>
+                                @empty
+                                <p>Статусы отсутствуют</p>
+                                @endforelse
+                            </select>
+                            <button type="submit" class="btn btn-primary">Изменить статус сообщения</button>
+                        </form>
+                        @endif
+
                     </div>
                 </div>
             </div>

@@ -27,6 +27,14 @@ Route::get('cat/show/{id_cat}', 'IndexController@showCat')->name('showCat');
 
 Route::get('user/show/{id_user}', 'IndexController@myAdv')->name('myAdv');
 
+/**
+ * Работа с админкой
+ */
+
+Route::get('/admin/{param}', 'AdminController@showMod')->name('showMod');
+
+Route::get('/admin/change/{id}', 'AdminController@changeStatus')->name('changeStatus');
+
 
 /**
  * Авторизация
