@@ -23,6 +23,8 @@ Route::match(['get','post'],'/create', 'IndexController@createAdv')->middleware(
 
 Route::get('/show/{id_adv}', 'IndexController@showAdv')->name('showAdv');
 
+Route::get('cat/show/{id_cat}', 'IndexController@showCat')->name('showCat');
+
 
 /**
  * Авторизация

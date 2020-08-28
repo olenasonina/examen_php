@@ -129,4 +129,15 @@ class IndexController extends Controller
         }
         abort(404); 
     }
+
+    public function showCat($id_cat) {
+        $cats = \DB::table('crops_categories')->get();
+        $c_advs = \DB::table('advertisements')
+                  ->join('crops', 'advertisements.crop_id', '=', 'crops.id')
+                  ->join('crops_categories', 'crops.category_id', '=', 'crops_categories.id')
+                  ->select('advertisements.*', 'crops.name as crops_name', 'crops_categories.name as category_name')
+                  ->where('crops_categories.id', $id_cat)
+                  ->orderBy('updated_at', 'desc')->get();
+        return view('cats', ['title' => 'GrainBoard | Категория', 'cats' => $cats, 'advs' => $c_advs]);
+    }
 }
